@@ -13,7 +13,7 @@ export function MobileFrame({ children, className }: MobileFrameProps) {
     <div className="flex min-h-screen w-full items-center justify-center bg-muted/20 px-4 py-6">
       <div
         className={cn(
-          "relative w-full max-w-93.75 overflow-hidden rounded-[28px] border border-black/5 bg-white/90 shadow-[0_12px_36px_rgba(0,0,0,0.16)] backdrop-blur",
+          "relative w-full max-w-93.75 overflow-hidden rounded-[28px] border border-black/5",
           "ring-1 ring-black/5 dark:ring-white/5",
           className,
         )}
