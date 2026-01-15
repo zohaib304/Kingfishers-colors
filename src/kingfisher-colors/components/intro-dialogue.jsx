@@ -8,6 +8,7 @@ import frowinSad from "../assets/frowin_sad.svg"
 import elaDefault from "../assets/ela_default.svg"
 import elaHappy from "../assets/ela_happy.svg"
 import elaSad from "../assets/ela_sad.svg"
+import { Game } from "./game"
 
 const dialogueLines = [
   {
@@ -116,13 +117,7 @@ export function IntroDialogue({ onComplete }) {
 
   if (isComplete) {
     return (
-      <div
-        className="intro-complete-container"
-        onClick={onComplete}
-      >
-        <h1 className="intro-complete-title">You in game</h1>
-        <p className="intro-complete-hint">Tap to continue</p>
-      </div>
+      <Game onFinish={onComplete} />
     )
   }
 

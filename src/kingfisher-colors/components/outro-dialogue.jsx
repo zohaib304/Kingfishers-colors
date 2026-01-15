@@ -59,7 +59,7 @@ export function OutroDialogue({ onComplete }) {
     return (
       <div
         className="intro-complete-container"
-        onClick={onComplete}
+        onClick={() => onComplete?.()}
       >
         <h1 className="intro-complete-title">Game Complete!</h1>
         <p className="intro-complete-hint">You received the kingfisher feather</p>

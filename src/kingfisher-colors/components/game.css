@@ -1,22 +1,66 @@
 .game-container {
-  height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  gap: 2rem;
 }
 
-.game-title {
-  font-size: 1.875rem;
+.kingfisher-canvas {
+  border: 3px solid #000000;
+  border-radius: 10px;
+  cursor: crosshair;
+  background-color: #FFFFFF;
+  touch-action: none;
+}
+
+.color-palette {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 3px solid #000000;
+  border-radius: 10px;
+}
+
+.color-swatch {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #000000;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.color-swatch.selected {
+  border: 4px solid #FF7700;
+  box-shadow: 0 0 0 2px #000000;
+  transform: scale(1.15);
+}
+
+.finish-button {
+  padding: 0.75rem 2rem;
+  font-size: 18px;
   font-weight: bold;
-  color: #111827;
-  margin-bottom: 2rem;
+  background-color: #22C55E;
+  color: white;
+  border: 3px solid #000000;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.game-description {
-  text-align: center;
-  color: #374151;
-  margin-bottom: 2rem;
+.finish-button:hover {
+  background-color: #16A34A;
+  transform: scale(1.05);
 }
