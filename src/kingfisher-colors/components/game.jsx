@@ -1,11 +1,11 @@
 import "./game.css"
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
+import birdSvg from "../assets/bird.svg"
+import birdColoredSvg from "../assets/bird-colored.svg"
 
 export function Game({ onFinish }) {
   const [selectedColor, setSelectedColor] = useState(null)
-  const [isPainting, setIsPainting] = useState(false)
-  const canvasRef = useRef(null)
-  const contextRef = useRef(null)
+  const [showHint, setShowHint] = useState(false)
 
   const colors = [
     { name: "blue", value: "#0EA5E9" },
@@ -20,90 +20,21 @@ export function Game({ onFinish }) {
     { name: "yellow", value: "#EAB308" },
   ]
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    canvas.width = 400
-    canvas.height = 400
-    
-    const context = canvas.getContext("2d")
-    context.lineCap = "round"
-    context.lineJoin = "round"
-    context.lineWidth = 20
-    
-    // Draw kingfisher outline placeholder
-    context.strokeStyle = "#000000"
-    context.lineWidth = 3
-    context.strokeRect(50, 50, 300, 300)
-    context.font = "24px Arial"
-    context.fillStyle = "#666"
-    context.textAlign = "center"
-    context.fillText("Kingfisher", 200, 210)
-    
-    context.lineWidth = 20
-    contextRef.current = context
-  }, [])
-
   const handleColorSelect = (color) => {
     setSelectedColor(color)
   }
 
-  const startPainting = (e) => {
-    if (!selectedColor) return
-    
-    const { offsetX, offsetY } = getCoordinates(e)
-    contextRef.current.strokeStyle = selectedColor.value
-    contextRef.current.beginPath()
-    contextRef.current.moveTo(offsetX, offsetY)
-    setIsPainting(true)
-  }
-
-  const paint = (e) => {
-    if (!isPainting || !selectedColor) return
-    
-    const { offsetX, offsetY } = getCoordinates(e)
-    contextRef.current.lineTo(offsetX, offsetY)
-    contextRef.current.stroke()
-  }
-
-  const stopPainting = () => {
-    if (isPainting) {
-      contextRef.current.closePath()
-      setIsPainting(false)
-    }
-  }
-
-  const getCoordinates = (e) => {
-    const canvas = canvasRef.current
-    const rect = canvas.getBoundingClientRect()
-    
-    if (e.touches && e.touches[0]) {
-      return {
-        offsetX: e.touches[0].clientX - rect.left,
-        offsetY: e.touches[0].clientY - rect.top,
-      }
-    }
-    
-    return {
-      offsetX: e.nativeEvent.offsetX,
-      offsetY: e.nativeEvent.offsetY,
-    }
-  }
-
   return (
     <div className="game-container">
-      {/* Canvas for painting */}
-      <canvas
-        ref={canvasRef}
-        className="kingfisher-canvas"
-        onMouseDown={startPainting}
-        onMouseMove={paint}
-        onMouseUp={stopPainting}
-        onMouseLeave={stopPainting}
-        onTouchStart={startPainting}
-        onTouchMove={paint}
-        onTouchEnd={stopPainting}
-      />
-
+      <div className="hint-container">
+        <button className="hint-button" onClick={() => setShowHint(true)}>
+          ?
+        </button>
+      </div>
+      {/* Kingfisher SVG */}
+      <div className="kingfisher-image">
+        <img src={birdSvg} alt="Kingfisher to color" />
+      </div>
       {/* Color Palette */}
       <div className="color-palette">
         {colors.map((color) => (
@@ -123,6 +54,23 @@ export function Game({ onFinish }) {
       <button className="finish-button" onClick={onFinish}>
         Finish (Test)
       </button>
+
+      {/* Hint Modal */}
+      {showHint && (
+        <div className="hint-modal-overlay" onClick={() => setShowHint(false)}>
+          <div className="hint-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="hint-modal-header">
+              <h3>Hint: Correct Colors</h3>
+              <button className="hint-close-button" onClick={() => setShowHint(false)}>
+                ✕
+              </button>
+            </div>
+            <div className="hint-image">
+              <img src={birdColoredSvg} alt="Correctly colored kingfisher" />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
