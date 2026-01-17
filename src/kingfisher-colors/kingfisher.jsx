@@ -10,13 +10,18 @@ import { OutroDialogue } from "./components/outro-dialogue"
 export default function Kingfisher() {
   const [gameState, setGameState] = useState("intro")
 
+  const handleGameFinish = () => {
+    console.log("Game finished, transitioning to outro");
+    setGameState("outro");
+  };
+
   return (
     <MobileFrame>
       {gameState === "intro" && (
         <IntroDialogue onComplete={() => setGameState("game")} />
       )}
       {gameState === "game" && (
-        <Game onFinish={() => setGameState("outro")} />
+        <Game onFinish={handleGameFinish} />
       )}
       {gameState === "outro" && (
         <OutroDialogue onComplete={() => setGameState("complete")} />

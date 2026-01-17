@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 100%;
   width: 100%;
   padding: 2rem;
@@ -55,7 +55,7 @@
 .color-palette {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0.75rem;
+  gap: 10px;
   background-color: rgba(255, 255, 255, 0.8);
 
 }
@@ -78,23 +78,6 @@
   border: 4px solid #FF7700;
   box-shadow: 0 0 0 2px #000000;
   transform: scale(1.15);
-}
-
-.finish-button {
-  padding: 0.75rem 2rem;
-  font-size: 18px;
-  font-weight: bold;
-  background-color: #22C55E;
-  color: white;
-  border: 3px solid #000000;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.finish-button:hover {
-  background-color: #16A34A;
-  transform: scale(1.05);
 }
 
 .hint-modal-overlay {
@@ -171,4 +154,131 @@
 
 .hint-close-button:hover {
   background-color: #DC2626;
+}
+/* Reward Modal Styles */
+.reward-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.reward-modal {
+  position: relative;
+  background: linear-gradient(135deg, #FFE5B4 0%, #FFF8DC 100%);
+  border: 3px solid #FFD700;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 350px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  animation: slideUp 0.5s ease-out;
+}
+
+.reward-modal h2 {
+  margin: 0 0 1rem 0;
+  font-size: 24px;
+  color: #D97706;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.reward-modal p {
+  margin: 0 0 1.5rem 0;
+  font-size: 16px;
+  color: #92400E;
+}
+
+.reward-feather {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem 0;
+  animation: bounce 2s infinite;
+}
+
+.reward-feather img {
+  width: 120px;
+  height: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.collect-text {
+  font-size: 14px;
+  color: #D97706;
+  font-weight: bold;
+  margin-top: 1rem;
+  animation: pulse 1.5s infinite;
+}
+
+/* Continue Button */
+.continue-button {
+  padding: 12px 32px;
+  background-color: #10B981;
+  color: white;
+  border: 2px solid #059669;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.continue-button:hover {
+  background-color: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.continue-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }

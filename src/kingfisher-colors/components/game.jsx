@@ -1,28 +1,38 @@
 import "./game.css"
-import { useState } from "react"
-import birdSvg from "../assets/bird.svg"
+import { useState, useEffect } from "react"
 import birdColoredSvg from "../assets/bird-colored.svg"
+import rewardFeatherSvg from "../assets/reward.svg"
+import ColorableBird from "./colorable-bird"
+
+const COLORS = [
+    "#5975C0",
+    "#5C5A5B",
+    "#7DB4CB",
+    "#8FA052",
+    "#9B6344",
+    "#C39370",
+    "#D05A43",
+    "#F6CF99",
+    "#FAF1D6"
+]
 
 export function Game({ onFinish }) {
-  const [selectedColor, setSelectedColor] = useState(null)
   const [showHint, setShowHint] = useState(false)
+  const [selectedColor, setSelectedColor] = useState("#5975C0");
+  const [filledPaths, setFilledPaths] = useState({});
+  const [error, setError] = useState("");
+  const [showReward, setShowReward] = useState(false);
+  const [featherCollected, setFeatherCollected] = useState(false);
 
-  const colors = [
-    { name: "blue", value: "#0EA5E9" },
-    { name: "white", value: "#FFFFFF" },
-    { name: "orange", value: "#F97316" },
-    { name: "black", value: "#000000" },
-    { name: "brown", value: "#92400E" },
-    { name: "green", value: "#22C55E" },
-    { name: "pink", value: "#EC4899" },
-    { name: "purple", value: "#A855F7" },
-    { name: "red", value: "#EF4444" },
-    { name: "yellow", value: "#EAB308" },
-  ]
-
-  const handleColorSelect = (color) => {
-    setSelectedColor(color)
-  }
+  // Check if all paths are correctly filled
+  useEffect(() => {
+    const totalPaths = 19; // Total number of bird parts
+    const filledCount = Object.keys(filledPaths).length;
+    
+    if (filledCount === totalPaths && !showReward && !featherCollected) {
+      setShowReward(true);
+    }
+  }, [filledPaths, showReward, featherCollected]);
 
   return (
     <div className="game-container">
@@ -31,31 +41,41 @@ export function Game({ onFinish }) {
           ?
         </button>
       </div>
-      {/* Kingfisher SVG */}
-      <div className="kingfisher-image">
-        <img src={birdSvg} alt="Kingfisher to color" />
-      </div>
-      {/* Color Palette */}
-      <div className="color-palette">
-        {colors.map((color) => (
+
+      <ColorableBird 
+        selectedColor={selectedColor}
+        filledPaths={filledPaths}
+        setFilledPaths={setFilledPaths}
+        error={error}
+        setError={setError}
+      />
+
+      <div style={{ marginBottom: 12 }} className="color-palette">
+        {COLORS.map(color => (
           <button
-            key={color.name}
-            className={`color-swatch ${
-              selectedColor?.name === color.name ? "selected" : ""
-            }`}
-            style={{ backgroundColor: color.value }}
-            onClick={() => handleColorSelect(color)}
-            aria-label={color.name}
-          />
+            className="color-swatch"
+            key={color}
+            onClick={() => setSelectedColor(color)}
+            style={{
+              background: color,
+              color: "white",
+              marginRight: 8,
+              border: selectedColor === color ? "2px solid black" : "none",
+            }}
+          >
+          </button>
         ))}
       </div>
 
-      {/* Test button */}
-      <button className="finish-button" onClick={onFinish}>
-        Finish (Test)
-      </button>
+      {featherCollected && (
+        <button className="continue-button" onClick={() => {
+          console.log("Continue button clicked, calling onFinish");
+          onFinish();
+        }}>
+          Continue
+        </button>
+      )}
 
-      {/* Hint Modal */}
       {showHint && (
         <div className="hint-modal-overlay" onClick={() => setShowHint(false)}>
           <div className="hint-modal" onClick={(e) => e.stopPropagation()}>
@@ -68,6 +88,22 @@ export function Game({ onFinish }) {
             <div className="hint-image">
               <img src={birdColoredSvg} alt="Correctly colored kingfisher" />
             </div>
+          </div>
+        </div>
+      )}
+
+      {showReward && (
+        <div className="reward-modal-overlay">
+          <div className="reward-modal" onClick={() => {
+            setFeatherCollected(true);
+            setShowReward(false);
+          }}>
+            <h2>Congratulations! 🎉</h2>
+            <p>You've successfully colored the kingfisher!</p>
+            <div className="reward-feather">
+              <img src={rewardFeatherSvg} alt="Kingfisher feather reward" />
+            </div>
+            <p className="collect-text">Click the feather to collect it!</p>
           </div>
         </div>
       )}
