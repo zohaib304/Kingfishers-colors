@@ -6,7 +6,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
 }
 
 .intro-complete-title {
@@ -19,4 +18,39 @@
   font-size: 0.875rem;
   color: #6b7280;
   margin-top: 1rem;
+}
+
+.complete-feather {
+  margin: 2rem 0;
+  animation: float 2s ease-in-out infinite;
+}
+
+.complete-feather img {
+  width: 120px;
+  height: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.continue-button {
+  padding: 12px 32px;
+  background-color: #10B981;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.continue-button:hover {
+  background-color: #059669;
+  transform: scale(1.05);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }

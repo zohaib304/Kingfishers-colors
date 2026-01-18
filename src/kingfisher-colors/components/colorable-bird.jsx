@@ -101,7 +101,7 @@ export default function ColorableBird({ selectedColor, filledPaths, setFilledPat
     const handlePathClick = (path) => {
         if (selectedColor !== path.correctColor) {
             setError(
-                `Wrong color selected. Please try again.`
+                "The kingfisher has not received his correct color yet. Try again."
             );
             return;
         }
@@ -115,12 +115,6 @@ export default function ColorableBird({ selectedColor, filledPaths, setFilledPat
 
     return (
         <div>
-            {error && (
-                <div style={{ color: "red", marginBottom: 8 }}>
-                    {error}
-                </div>
-            )}
-
             <svg width="346" height="256" viewBox="0 0 346 256" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {PATHS.map((path) => (
                     <path

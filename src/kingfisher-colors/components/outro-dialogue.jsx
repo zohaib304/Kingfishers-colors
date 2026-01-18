@@ -3,6 +3,7 @@ import { useState } from "react"
 import miloDefault from "../assets/milo_default.svg"
 import frowinHappy from "../assets/frowin_happy.svg"
 import elaDefault from "../assets/ela_default.svg"
+import rewardFeatherSvg from "../assets/reward.svg"
 
 // Note: Using available assets - milo_default for Milo_Happy, ela_default for Ela_Happy
 const dialogueLines = [
@@ -57,12 +58,15 @@ export function OutroDialogue({ onComplete }) {
 
   if (isComplete) {
     return (
-      <div
-        className="intro-complete-container"
-        onClick={() => onComplete?.()}
-      >
+      <div className="intro-complete-container">
         <h1 className="intro-complete-title">Game Complete!</h1>
         <p className="intro-complete-hint">You received the kingfisher feather</p>
+        <div className="complete-feather">
+          <img src={rewardFeatherSvg} alt="Kingfisher feather" />
+        </div>
+        <button className="continue-button" onClick={() => onComplete?.()}>
+          Continue
+        </button>
       </div>
     )
   }

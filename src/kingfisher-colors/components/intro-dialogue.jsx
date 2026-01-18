@@ -8,7 +8,6 @@ import frowinSad from "../assets/frowin_sad.svg"
 import elaDefault from "../assets/ela_default.svg"
 import elaHappy from "../assets/ela_happy.svg"
 import elaSad from "../assets/ela_sad.svg"
-import { Game } from "./game"
 
 const dialogueLines = [
   {
@@ -103,22 +102,15 @@ const getCharacterNameColor = (character) => {
 
 export function IntroDialogue({ onComplete }) {
   const [currentLine, setCurrentLine] = useState(0)
-  const isComplete = currentLine >= dialogueLines.length
 
   const handleScreenTap = () => {
-    if (isComplete) {
-      onComplete?.()
-    } else if (currentLine < dialogueLines.length - 1) {
+    if (currentLine < dialogueLines.length - 1) {
+      // Go to next dialogue line
       setCurrentLine(currentLine + 1)
     } else {
-      setCurrentLine(currentLine + 1)
+      // Last dialogue line - go to game
+      onComplete?.()
     }
-  }
-
-  if (isComplete) {
-    return (
-      <Game onFinish={onComplete} />
-    )
   }
 
   const dialogue = dialogueLines[currentLine]

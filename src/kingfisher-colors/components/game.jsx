@@ -5,41 +5,55 @@ import rewardFeatherSvg from "../assets/reward.svg"
 import ColorableBird from "./colorable-bird"
 
 const COLORS = [
-    "#5975C0",
-    "#5C5A5B",
-    "#7DB4CB",
-    "#8FA052",
-    "#9B6344",
-    "#C39370",
-    "#D05A43",
-    "#F6CF99",
-    "#FAF1D6"
+  "#5975C0", "#5C5A5B", "#7DB4CB", "#8FA052", "#9B6344",
+  "#C39370", "#D05A43", "#F6CF99", "#FAF1D6"
 ]
+
+const TOTAL_PATHS = 19
 
 export function Game({ onFinish }) {
   const [showHint, setShowHint] = useState(false)
-  const [selectedColor, setSelectedColor] = useState("#5975C0");
-  const [filledPaths, setFilledPaths] = useState({});
-  const [error, setError] = useState("");
-  const [showReward, setShowReward] = useState(false);
-  const [featherCollected, setFeatherCollected] = useState(false);
+  const [selectedColor, setSelectedColor] = useState("#5975C0")
+  const [filledPaths, setFilledPaths] = useState({})
+  const [error, setError] = useState("")
+  const [showReward, setShowReward] = useState(false)
 
-  // Check if all paths are correctly filled
+  // Show reward when all paths are filled
   useEffect(() => {
-    const totalPaths = 19; // Total number of bird parts
-    const filledCount = Object.keys(filledPaths).length;
-    
-    if (filledCount === totalPaths && !showReward && !featherCollected) {
-      setShowReward(true);
+    const filledCount = Object.keys(filledPaths).length
+    if (filledCount === TOTAL_PATHS && !showReward) {
+      setShowReward(true)
     }
-  }, [filledPaths, showReward, featherCollected]);
+  }, [filledPaths, showReward])
+
+  // Auto-dismiss error after 3 seconds with fade out
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError("")
+      }, 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [error, setError])
+
+  // Handle collect feather - go to outro
+  const handleCollectFeather = () => {
+    onFinish()
+  }
+
+  console.log(error)
 
   return (
     <div className="game-container">
+      {/* Error Message */}
+      {error && (
+        <div className="error-message">
+          {error}
+        </div>
+      )}
+
       <div className="hint-container">
-        <button className="hint-button" onClick={() => setShowHint(true)}>
-          ?
-        </button>
+        <button className="hint-button" onClick={() => setShowHint(true)}>?</button>
       </div>
 
       <ColorableBird 
@@ -50,7 +64,7 @@ export function Game({ onFinish }) {
         setError={setError}
       />
 
-      <div style={{ marginBottom: 12 }} className="color-palette">
+      <div className="color-palette">
         {COLORS.map(color => (
           <button
             className="color-swatch"
@@ -58,32 +72,19 @@ export function Game({ onFinish }) {
             onClick={() => setSelectedColor(color)}
             style={{
               background: color,
-              color: "white",
-              marginRight: 8,
               border: selectedColor === color ? "2px solid black" : "none",
             }}
-          >
-          </button>
+          />
         ))}
       </div>
 
-      {featherCollected && (
-        <button className="continue-button" onClick={() => {
-          console.log("Continue button clicked, calling onFinish");
-          onFinish();
-        }}>
-          Continue
-        </button>
-      )}
-
+      {/* Hint Modal */}
       {showHint && (
         <div className="hint-modal-overlay" onClick={() => setShowHint(false)}>
           <div className="hint-modal" onClick={(e) => e.stopPropagation()}>
             <div className="hint-modal-header">
               <h3>Hint: Correct Colors</h3>
-              <button className="hint-close-button" onClick={() => setShowHint(false)}>
-                ✕
-              </button>
+              <button className="hint-close-button" onClick={() => setShowHint(false)}>✕</button>
             </div>
             <div className="hint-image">
               <img src={birdColoredSvg} alt="Correctly colored kingfisher" />
@@ -92,18 +93,18 @@ export function Game({ onFinish }) {
         </div>
       )}
 
+      {/* Reward Modal */}
       {showReward && (
         <div className="reward-modal-overlay">
-          <div className="reward-modal" onClick={() => {
-            setFeatherCollected(true);
-            setShowReward(false);
-          }}>
+          <div className="reward-modal">
             <h2>Congratulations! 🎉</h2>
             <p>You've successfully colored the kingfisher!</p>
             <div className="reward-feather">
               <img src={rewardFeatherSvg} alt="Kingfisher feather reward" />
             </div>
-            <p className="collect-text">Click the feather to collect it!</p>
+            <button type="button" className="collect-button" onClick={handleCollectFeather}>
+              Collect Feather
+            </button>
           </div>
         </div>
       )}
