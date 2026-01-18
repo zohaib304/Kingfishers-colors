@@ -4,17 +4,17 @@ import backgroundImage from "../assets/background.png"
 
 export function MobileFrame({ children }) {
   return (
-    <div className="mobile-frame-wrapper">
-      <div
-        className="mobile-frame"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      >
-        <div className="mobile-frame-content">
-          {children}
-        </div>
+
+    <div
+      className="mobile-frame"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+      }}
+    >
+      <div className="mobile-frame-content">
+        {children}
       </div>
     </div>
+
   )
 }
