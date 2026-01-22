@@ -48,7 +48,7 @@ const dialogueLines = [
   },
   {
     character: "Frowin",
-    text: "...SCHWARZ-WEIB?",
+    text: "...SCHWARZ-WEIß?",
     picture: frowinSurprised,
     height: 200,
     width: 200,
