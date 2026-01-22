@@ -11,16 +11,28 @@ const dialogueLines = [
     character: "Milo",
     text: "Endlich! Der Eisvogel erstrahlt wieder im alten Glanz.",
     picture: miloDefault,
+    height: 250,
+    width: 250,
+    top: 80,
+    right: -50,
   },
   {
     character: "Ela",
     text: "Schaut mal, er hat etwas für uns.",
     picture: elaDefault,
+    height: 250,
+    width: 250,
+    top: 90,
+    right: -60,
   },
   {
     character: "Frowin",
     text: "Die Feder. Wir haben ihm geholfen, und jetzt hilft er uns, Gundomar aufzuhalten.",
     picture: frowinHappy,
+    height: 200,
+    width: 200,
+    top: 70,
+    right: -70,
   },
 ]
 
@@ -79,11 +91,16 @@ export function OutroDialogue({ onComplete }) {
       className="intro-dialogue-container"
       onClick={handleScreenTap}
     >
-      <div 
+      <div
         className="character-image-right"
-        style={{ alignSelf: dialogue.character === "Ela" ? "flex-start" : "flex-end" }}
+        style={{ 
+          left: dialogue.character === "Ela" ? "-60px" : "", 
+          top: dialogue.character === "Ela" ? "90px" : "", 
+          top: dialogue.top ? dialogue.top + "px" : "", 
+          right: dialogue.right ? dialogue.right + "px" : "" 
+        }}
       >
-        <img src={dialogue.picture} alt={dialogue.character} />
+        <img src={dialogue.picture} alt={dialogue.character} width={dialogue.width} height={dialogue.height} />
       </div>
       <div 
         className="character-name-box"
