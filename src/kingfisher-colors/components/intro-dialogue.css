@@ -5,25 +5,21 @@
   justify-content: end;
   height: 100%;
   width: 100%;
-  padding: 1rem;
+  padding: 0.3rem 1rem;
   box-sizing: border-box;
   cursor: pointer;
 }
 
 .intro-dialogue-box {
-  width: 100%;
+  width: 95%;
   text-align: center;
-  background-color: #1656FD50;
   border: 3px solid #000000;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   border-radius: 5px;
+  padding: 0px 5px;
 }
 
 .character-image-right {
-  width: 300px;
-  height: auto;
-  align-self: flex-end;
-  top: 90px;
   position: relative;
 }
 
@@ -32,21 +28,25 @@
 }
 
 .character-name-box {
-  text-align: center;
-  background-color: #1656FD80;
-  padding: 0px 10px;
+  width: 120px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 3px solid #000000;
   align-self: flex-start;
   border-radius: 5px;
+  font-size: 24px;
 }
 
 .progress-bar-container {
   width: 100%;
-  height: 1rem;
+  height: 11px;
 }
 
 .progress-bar-container .progress-bar-fill {
   background-color: #FF7700;
   height: 100%;
   transition: all 300ms;
+  border: 1px solid #000000;
 }

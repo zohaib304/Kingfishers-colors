@@ -6,7 +6,7 @@ import ColorableBird from "./colorable-bird"
 
 const COLORS = [
   "#5975C0", "#5C5A5B", "#7DB4CB", "#8FA052", "#9B6344",
-  "#C39370", "#D05A43", "#F6CF99", "#FAF1D6"
+  "#C39370", "#D05A43", "#F2BC7E", "#FAF1D6"
 ]
 
 const TOTAL_PATHS = 19
@@ -98,7 +98,7 @@ export function Game({ onFinish }) {
         <div className="reward-modal-overlay">
           <div className="reward-modal">
             <h2>Congratulations! 🎉</h2>
-            <p>You've successfully colored the kingfisher!</p>
+            <p>You&apos;ve successfully colored the kingfisher!</p>
             <div className="reward-feather">
               <img src={rewardFeatherSvg} alt="Kingfisher feather reward" />
             </div>
