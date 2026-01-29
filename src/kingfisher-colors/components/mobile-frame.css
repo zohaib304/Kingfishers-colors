@@ -1,5 +1,6 @@
 .mobile-frame {
   width: 350px;
+  max-width: 350px;
   height: calc(100vh - 4rem);
   background-size: 100% 100%;
   background-position: center;
@@ -7,6 +8,12 @@
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   border: 8px solid #D9D9D9;
+}
+
+@media (max-width: 350px) {
+  .mobile-frame {
+    width: 95vw;
+  }
 }
 
 .mobile-frame-content {

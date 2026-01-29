@@ -1,6 +1,6 @@
 import "./mobile-frame.css"
 
-import backgroundImage from "../assets/background.png"
+import backgroundImage from "../assets/new_background.png"
 
 export function MobileFrame({ children }) {
   return (
